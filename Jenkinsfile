@@ -4,6 +4,10 @@ pipeline {
 
     environment {
 
+        GIT_REPO = 'https://github.com/vickypatil1471/DevopsProject.git'
+
+        LOCAL_DIR = 'C:\\Users\\vicky\\OneDrive\\Desktop\\Devops\\EventSphere'
+
         IMAGE_NAME = 'eventsphere:latest'
 
         CONTAINER_NAME = 'eventspherecontainer'
@@ -19,9 +23,7 @@ pipeline {
 
                 script {
 
-                    bat """
-                    docker build -t %IMAGE_NAME% .
-                    """
+                    bat "cd /d %LOCAL_DIR% && docker build -t %IMAGE_NAME% ."
                 }
             }
         }
@@ -32,9 +34,7 @@ pipeline {
 
                 script {
 
-                    bat """
-                    wsl ansible-playbook %WSL_ANSIBLE_SCRIPT%
-                    """
+                    bat "wsl ansible-playbook %WSL_ANSIBLE_SCRIPT%"
                 }
             }
         }
