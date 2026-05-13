@@ -1,0 +1,34 @@
+---
+- name: Deploy EventSphere Website on Docker
+
+  hosts: localhost
+
+  tasks:
+
+    - name: Stop existing Docker container
+
+      command: docker stop eventspherecontainer
+
+      ignore_errors: yes
+
+    - name: Remove existing Docker container
+
+      command: docker rm eventspherecontainer
+
+      ignore_errors: yes
+
+    - name: Run new Docker container
+
+      command: docker run --name eventspherecontainer -d -p 8080:80 eventsphere:latest
+
+    - name: Get container logs
+
+      command: docker logs eventspherecontainer
+
+      register: container_logs
+
+    - name: Display container output
+
+      debug:
+
+        msg: "{{ container_logs.stdout_lines }}"
