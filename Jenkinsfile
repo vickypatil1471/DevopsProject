@@ -4,10 +4,6 @@ pipeline {
 
     environment {
 
-        GIT_REPO = 'https://github.com/vickypatil1471/DevopsProject.git'
-
-        LOCAL_DIR = 'C:\\Users\\vicky\\OneDrive\\Desktop\\Devops\\EventSphere'
-
         IMAGE_NAME = 'eventsphere:latest'
 
         CONTAINER_NAME = 'eventspherecontainer'
@@ -17,20 +13,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Repository') {
-
-            steps {
-
-                script {
-
-                    bat """
-                    if exist %LOCAL_DIR% rmdir /s /q %LOCAL_DIR%
-                    git clone %GIT_REPO% %LOCAL_DIR%
-                    """
-                }
-            }
-        }
-
         stage('Build Docker Image') {
 
             steps {
@@ -38,7 +20,6 @@ pipeline {
                 script {
 
                     bat """
-                    cd /d %LOCAL_DIR%
                     docker build -t %IMAGE_NAME% .
                     """
                 }
